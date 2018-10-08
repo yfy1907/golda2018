@@ -11,6 +11,8 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.util.Log;
 
+import com.example.administrator.goldaappnew.common.MyLogger;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -50,6 +52,7 @@ public class HttpTools {
     public synchronized static List getJson(String url, String param, int type) {
         String urls=url+"?"+param;
         Log.i(TAG, "getJson: "+urls);
+        MyLogger.Log().i("## 加载列表："+urls);
 //        String urls="http://cs.jdjk.net/mob_login.php?username=admin&password=111111";
         OkHttpClient mOkHttpClient=new OkHttpClient();
         Request.Builder requestBuilder = new Request.Builder()

@@ -523,21 +523,18 @@ public class FragmentXuncha extends BaseFragment implements BaiduMap.OnMapClickL
                     if (adgreenList == null) {
                         adgreenList = new ArrayList<AdGreenBean>();
                     }
-                    if (adgreenList.size() >= StaticMember.NUM
-                            || adgreenList.size() == 0 ) {
-                        Log.e("loadFromServer开始", "当前中心点：" + centerMarkerLL + "当前UID:" + StaticMember.USER.getUid() + "当前设备号：" + MultiTool.getSerialnum());
-                        adgreenList = HttpTools.getJson(StaticMember.URL
-                                        + "mob_gis.php",
-                                "minx=1.0&maxx=136.0&miny=2.0&maxy=53.0&device_id="
-                                        + MultiTool.getSerialnum() + "&uid="
-                                        + StaticMember.USER.getUid()
+                    if (adgreenList.size() >= StaticMember.NUM || adgreenList.size() == 0 ) {
+                        //Log.e("loadFromServer开始", "当前中心点：" + centerMarkerLL + "当前UID:" + StaticMember.USER.getUid() + "当前设备号：" + MultiTool.getSerialnum());
+                        adgreenList = HttpTools.getJson(StaticMember.URL + "mob_gis.php",
+                                "minx=1.0&maxx=136.0&miny=2.0&maxy=53.0&device_id=" + MultiTool.getSerialnum()
+                                        + "&uid=" + StaticMember.USER.getUid()
                                         + "&order=board_id&page=" + page
                                         + "&lng=" + centerMarkerLL.latitude //数据库这里横纵坐标是反的，故反写
                                         + "&lat=" + centerMarkerLL.longitude
+                                        + "&use_permissions="+StaticMember.use_permissions
                                         + "&type=" + loadTypeString,
                                 StaticMember.ADLIST_GREEN);
                         Log.e("可以显示的绿标个数", adgreenList.size() + "===");
-
                     }
 
                 } catch (Exception e) {
@@ -556,16 +553,15 @@ public class FragmentXuncha extends BaseFragment implements BaiduMap.OnMapClickL
                         adredList = new ArrayList<AdRedBean>();
                     }
                     //StaticMember.USER.getUid()
-                    if (adredList.size() >= StaticMember.NUM
-                            || adredList.size() == 0) {
-                        adredList = HttpTools.getJson(StaticMember.URL
-                                        + "mob_red.php",
+                    if (adredList.size() >= StaticMember.NUM || adredList.size() == 0) {
+                        adredList = HttpTools.getJson(StaticMember.URL + "mob_red.php",
                                 "minx=1.0&maxx=136.0&miny=2.0&maxy=53.0&device_id="
-                                        + MultiTool.getSerialnum() + "&uid="
-                                        + StaticMember.USER.getUid()
+                                        + MultiTool.getSerialnum()
+                                        + "&uid=" + StaticMember.USER.getUid()
                                         + "&order=lid&page=" + page
                                         + "&lng=" + centerMarkerLL.latitude
                                         + "&lat=" + centerMarkerLL.longitude
+                                        + "&use_permissions="+StaticMember.use_permissions
                                         + "&type=" + loadTypeString,
                                 StaticMember.ADLIST_RED);
                         Log.e("878", adredList.size()+"===");

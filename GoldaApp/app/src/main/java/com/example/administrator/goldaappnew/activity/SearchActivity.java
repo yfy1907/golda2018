@@ -31,7 +31,6 @@ import butterknife.ButterKnife;
 /**
  * Created by Administrator on 2017/8/22.
  */
-
 public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.search_view)
     SearchView searchView;
@@ -109,17 +108,18 @@ public class SearchActivity extends AppCompatActivity {
                 }
             }
         };
+
         new Thread(new Runnable() {
             @Override
             public void run() {
-                list = HttpTools.getJson(StaticMember.URL
-                                + "mob_search.php",
-                        "query=" + query,
+                list = HttpTools.getJson(StaticMember.URL + "mob_search.php",
+                        "query=" + query+"&use_permissions="+StaticMember.use_permissions+"&uid=" + StaticMember.USER.getUid(),
                         StaticMember.ADLIST_RED);
                 handler.sendEmptyMessage(1);
             }
         }).start();
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK)

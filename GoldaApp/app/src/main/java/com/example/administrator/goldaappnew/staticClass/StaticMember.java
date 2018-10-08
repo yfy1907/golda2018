@@ -11,6 +11,7 @@ public class StaticMember {
     public static String database_name = "golda_tracy.db";
 
     public static int HTTP_REQUEST_TIME_OUT = 15000;
+    public static String use_permissions = "1"; // 使用权限标记
 
     public static int PORT = 80;
     // public static String city_short="cs";

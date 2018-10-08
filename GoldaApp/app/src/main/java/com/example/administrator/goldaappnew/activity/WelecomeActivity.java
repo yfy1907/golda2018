@@ -131,7 +131,7 @@ public class WelecomeActivity extends Activity implements ActivityCompat.OnReque
             @Override
             public void run() {
 
-                newVersion = HttpTools.getNewVersion(StaticMember.URL + "mob_version2.php");
+                newVersion = HttpTools.getNewVersion(StaticMember.URL + "mob_version3.php");
                 Log.i(TAG, "run: 查看数据库最新版本"+newVersion);
                 handler.sendEmptyMessage(1);
             }

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="巡查列表"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:background="@drawable/textcolor"
+            android:id="@+id/tv_Patrol"
+            android:enabled="true"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#dddddd"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="审批列表"
+            android:id="@+id/tv_Trial"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:background="@drawable/textcolor"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+    <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/radio_200m"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="200米"
+            android:textColor="#008B00"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/radio_500m"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="500米"
+            android:textColor="#008B00"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/radio_1000m"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1000米"
+            android:textColor="#008B00"
+            android:textSize="14sp" />
+    </RadioGroup>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recycle_red"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recycle_green"
+        android:visibility="gone"
+        />
+
+
+
+</LinearLayout>

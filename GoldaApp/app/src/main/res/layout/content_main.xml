@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.administrator.goldaappnew.activity.HomeActivity"
+    tools:showIn="@layout/activity_main">
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_swich"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="mini"
+        android:layout_marginBottom="8dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/swich"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="#ffffff"
+        app:rippleColor="#33728dff" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_around"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="mini"
+        android:layout_marginBottom="8dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/fab_local"
+        android:src="@drawable/around"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="#ffffff"
+        app:rippleColor="#33728dff" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="mini"
+        android:layout_marginBottom="12dp"
+        android:layout_alignParentLeft="true"
+        android:layout_above="@+id/fab_local"
+        android:src="@drawable/refresh"
+        android:layout_marginLeft="@dimen/fab_margin"
+        app:backgroundTint="#ffffff"
+        app:rippleColor="#33728dff" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_local"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/loaction"
+        app:backgroundTint="#ffffff"
+        app:fabSize="mini"
+        app:rippleColor="#33728dff" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add_now"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="mini"
+        android:visibility="gone"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/now"
+        app:backgroundTint="#ffffff"
+        app:rippleColor="#33728dff" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add_by_hand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="mini"
+        android:visibility="gone"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/hand"
+        app:backgroundTint="#ffffff"
+        app:rippleColor="#33728dff" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="normal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/add"
+        app:backgroundTint="#ffffffff"
+        app:rippleColor="#33728dff" />
+    <ImageView
+        android:id="@+id/iv_center_location"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:paddingBottom="18dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/center_location1"
+        android:clickable="false"
+        />
+    <LinearLayout
+        android:id="@+id/ll_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_margin="2dp"
+        >
+        <ImageButton
+            android:id="@+id/iv_view1"
+            android:layout_width="64dp"
+            android:layout_height="42dp"
+            android:background="@drawable/button_bg_shadow"/>
+        <ImageButton
+            android:id="@+id/iv_view2"
+            android:layout_width="64dp"
+            android:layout_height="42dp"
+            android:background="@drawable/button_bg_shadow"/>
+        <ImageButton
+            android:id="@+id/iv_view3"
+            android:layout_width="64dp"
+            android:layout_height="42dp"
+            android:background="@drawable/button_bg_shadow"/>
+
+
+    </LinearLayout>
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

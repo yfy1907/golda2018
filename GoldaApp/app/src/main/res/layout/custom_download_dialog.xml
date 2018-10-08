@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    android:orientation="vertical" 
+    style="@android:style/Theme.Dialog"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <LinearLayout 
+        android:orientation="vertical" 
+        android:layout_width="fill_parent" 
+        android:background="@color/white"
+        android:layout_height="wrap_content" 
+        android:layout_marginLeft="4.0dip" 
+        android:layout_marginRight="4.0dip" 
+        android:layout_centerHorizontal="true">
+        
+        <LinearLayout 
+            android:orientation="vertical" 
+            android:id="@+id/content"
+            android:layout_width="fill_parent" 
+            android:layout_height="wrap_content">
+            
+            <TextView android:id="@+id/message"
+                android:layout_width="fill_parent" 
+                android:layout_height="wrap_content" 
+                android:layout_marginTop="20.0dip" 
+                android:layout_marginLeft="20.0dip"
+                android:layout_marginRight="20.0dip"
+                android:text="已下载0%"
+                android:textSize="16.0sp" />
+            
+             <ProgressBar
+	           android:id="@+id/loadProgressBar"
+	           style="?android:attr/progressBarStyleHorizontal"
+	           android:layout_width="fill_parent"
+	           android:layout_height="wrap_content"
+	           android:layout_alignParentLeft="true"
+	           android:layout_alignParentRight="true"
+	           android:layout_alignParentTop="true"
+	           android:max="100"
+	           android:layout_marginTop="6.0dip" 
+               android:layout_marginLeft="10.0dip"
+               android:layout_marginRight="10.0dip"
+               android:layout_marginBottom="10.0dip"
+	           android:progress="0" />
+        </LinearLayout>
+        
+        <ImageView 
+            android:layout_width="fill_parent" 
+            android:layout_height="wrap_content" 
+            android:layout_marginLeft="5.0dip" 
+            android:layout_marginRight="5.0dip" 
+            android:src="@drawable/dialog_divider_line_img" 
+            android:scaleType="fitXY" />
+        
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10.0dip"
+            android:layout_marginTop="10.0dip"
+            android:gravity="center"
+            android:paddingBottom="1.0dip"
+            android:paddingTop="1.0dip" >
+
+            <RelativeLayout
+                android:id="@+id/dialog_btn2_parent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0" >
+
+                <Button
+                    android:id="@+id/dialog_btn2"
+                    android:layout_width="100.0dip"
+                    android:layout_height="40.0dip"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:background="@null"
+                    android:text="后台下载"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+        </LinearLayout>
+        
+    </LinearLayout>
+</RelativeLayout>

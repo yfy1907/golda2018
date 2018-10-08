@@ -1,0 +1,72 @@
+[
+          {
+                    "featureType": "land",
+                    "elementType": "geometry",
+                    "stylers": {
+                              "color": "#fdfdfd"
+                    }
+          },
+          {
+                    "featureType": "water",
+                    "elementType": "all",
+                    "stylers": {
+                              "color": "#c0e2fc"
+                    }
+          },
+          {
+                    "featureType": "green",
+                    "elementType": "all",
+                    "stylers": {
+                              "color": "#d9ead3"
+                    }
+          },
+          {
+                    "featureType": "highway",
+                    "elementType": "geometry.fill",
+                    "stylers": {
+                              "color": "#bbd4d0"
+                    }
+          },
+          {
+                    "featureType": "arterial",
+                    "elementType": "geometry.fill",
+                    "stylers": {
+                              "color": "#dbe4f7"
+                    }
+          },
+          {
+                    "featureType": "poilabel",
+                    "elementType": "labels.text.fill",
+                    "stylers": {
+                              "color": "#f05b48"
+                    }
+          },
+          {
+                    "featureType": "manmade",
+                    "elementType": "geometry.fill",
+                    "stylers": {
+                              "color": "#e9e6db"
+                    }
+          },
+          {
+                    "featureType": "building",
+                    "elementType": "geometry.fill",
+                    "stylers": {
+                              "color": "#d1daec"
+                    }
+          },
+          {
+                    "featureType": "subway",
+                    "elementType": "geometry.fill",
+                    "stylers": {
+                              "color": "#fafafa"
+                    }
+          },
+          {
+                    "featureType": "subway",
+                    "elementType": "geometry.stroke",
+                    "stylers": {
+                              "color": "#5b94cf"
+                    }
+          }
+]

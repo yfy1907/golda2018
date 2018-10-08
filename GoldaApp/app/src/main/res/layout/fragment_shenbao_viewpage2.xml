@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    >
+    <!--tools:showIn="@layout/activity_fragment_shenbao"-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/text_op_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="5dp"
+            android:text="*多图请合并为PDF" />
+
+        <ListView
+            android:id="@+id/addAttachListView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:divider="#ffcccccc"
+            android:dividerHeight="1.0dip"
+            android:paddingBottom="10.0dip"
+            android:paddingLeft="15.0dip"
+            android:paddingRight="15.0dip"
+            android:scrollbars="none" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

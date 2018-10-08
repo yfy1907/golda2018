@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/gray_light">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/board_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="10dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:elevation="10dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_company"
+                    android:layout_width="0.0dip"
+                    android:layout_weight="1.0"
+                    android:layout_height="wrap_content"
+                    android:text="阿里巴巴传媒广告有限公司"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/text_dateline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2018-08-08"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="地址：如皋百佳惠瑞丰大药房有限公司康乐店"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/text_board_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="美体类型：户外广告设施 建(构)筑物上的 常规墙面广告"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1.0"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="受理状态："
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/board_state_sl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="未受理"
+                        android:textSize="10sp"
+                        android:textColor="@color/white"
+                        android:minWidth="50.0dip"
+                        android:gravity="center"
+                        android:background="@drawable/shape_board_button_state0"  />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1.0"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:orientation="horizontal" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="核查状态："
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/board_state_hc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="未核查"
+                        android:textSize="10sp"
+                        android:textColor="@color/white"
+                        android:minWidth="50.0dip"
+                        android:gravity="center"
+                        android:background="@drawable/shape_board_button_state0"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1.0"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="审核状态："
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/board_state_sh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="未审核"
+                        android:textSize="10sp"
+                        android:textColor="@color/white"
+                        android:minWidth="50.0dip"
+                        android:gravity="center"
+                        android:background="@drawable/shape_board_button_state1"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1.0"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:orientation="horizontal" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="备案状态："
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/board_state_ba"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="通过"
+                        android:textSize="10sp"
+                        android:textColor="@color/white"
+                        android:minWidth="50.0dip"
+                        android:gravity="center"
+                        android:background="@drawable/shape_board_button_state2"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="vertical"
+                android:layout_gravity="right"
+                android:gravity="right">
+                <Button
+                    android:id="@+id/btn_query"
+                    android:layout_width="100dp"
+                    android:layout_height="25dp"
+                    android:text=" 查 看 "
+                    android:minWidth="100.0dip"
+                    android:background="@drawable/shape_board_button"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

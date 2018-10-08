@@ -1,0 +1,21 @@
+<resources>
+
+    <string name="app_name">巡查项目申报</string>
+    <string name="action_settings">设置</string>
+    <string name="action_choose">选择</string>
+    <string name="search">搜索</string>
+    <string name="detail">详情</string>
+    <string name="sub1">长按图片可上传新照片</string>
+    <string name="cname">南京金达传媒科技有限公司全国户外广告监控服务平台</string>
+    <string name="ctel">电话：400-086-0056 转</string>
+    <string name="czhiban">平台24小时值班：8000</string>
+    <string name="cshichang">平台市场部：孙翔 QQ:412734303王琦 QQ:81008002 </string>
+    <string name="cemail">E-mail: golda_ad@126.com</string>
+    <string name="cnet">网址：www.jdjk.net</string>
+    <string name="caddress">地址：南京市虎踞南路10号4楼</string>
+
+    <string name="main_fragment_menu_1">申报</string>
+    <string name="main_fragment_menu_2">巡查</string>
+    <string name="main_fragment_menu_3">广告牌</string>
+    <string name="main_fragment_menu_4">我</string>
+</resources>

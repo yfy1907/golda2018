@@ -415,7 +415,8 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
 
         attachArray = new String[]{"设置申请书","公司营业执照","个人身份证明","效果图","实景图","规格平面图","产权证书或\n房屋租赁协议"
                 ,"载体安全证明","相关书面协议","场地租用合同","结构设计图","施工图","施工说明书","建安资质证书","施工保证书","规划拍卖意见",
-        "授权人身份证","授权委托书"};
+                "授权人身份证","授权委托书","现场核查意见书","备案通知书"};
+
         for(int i = 0; i < attachArray.length; i++ ){
             Map<String,String> map = new HashMap<>();
             map.put("title",attachArray[i]);
@@ -549,6 +550,11 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         listAttachData.get(15).put("file_name",boardBean.getB_attach_16());
         listAttachData.get(16).put("file_name",boardBean.getB_attach_17());
         listAttachData.get(17).put("file_name",boardBean.getB_attach_18());
+
+        // 现场核查意见书 b_attach_19, 备案通知书 b_attach_20 (审核完成了以后让申报的人看到)
+        listAttachData.get(18).put("file_name",boardBean.getB_attach_19());
+        listAttachData.get(19).put("file_name",boardBean.getB_attach_20());
+
         lazyAdapter.notifyDataSetChanged();
     }
 

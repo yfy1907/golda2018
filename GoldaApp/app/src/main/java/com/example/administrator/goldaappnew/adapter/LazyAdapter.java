@@ -100,8 +100,15 @@ public class LazyAdapter extends BaseAdapter {
 
         // 设置添加附件标题
         tv_title.setText(listData.get(position).get("title"));
+        tv_title.setTag(listData.get(position).get("title"));
         // 设置添加附件点击
         iv_add_attach.setOnClickListener(new AddFileImageOnClickListener(position));
+        if("现场核查意见书".equals(listData.get(position).get("title")) || "备案通知书".equals(listData.get(position).get("title"))){
+            iv_add_attach.setVisibility(View.INVISIBLE);
+        }else{
+            iv_add_attach.setVisibility(View.VISIBLE);
+        }
+
         // 设置点击缩略图删除
         iv_view_small.setOnClickListener(new RemoveFileImageOnClickListener(position));
 
@@ -111,7 +118,7 @@ public class LazyAdapter extends BaseAdapter {
 
         if(!StringUtil.isEmpty(fileUrl)){
             String suffix = fileUrl.substring(fileUrl.lastIndexOf(".")+1).toLowerCase();
-            Log.i("","## 文件地址："+fileUrl+"; 后缀名："+suffix);
+            // Log.i("","## 文件地址："+fileUrl+"; 后缀名："+suffix);
             if("pdf".equals(suffix)){
                 // PDF文件显示PDF图标
                 iv_view_small.setImageResource(R.drawable.pdf_icon);

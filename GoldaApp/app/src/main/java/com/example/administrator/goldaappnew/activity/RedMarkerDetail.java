@@ -709,7 +709,7 @@ public class RedMarkerDetail extends AppCompatActivity {
                                 adRedBean.setQuestion(tv_question.getText().toString().trim());
                                 String up_finder = tv_find.getText().toString().trim();
                                 if (null == up_finder || "".equals(up_finder)) {
-                                    up_finder = StaticMember.USER.getRealname().trim();
+                                    up_finder = StaticMember.USER.getUsername().trim();
                                 }
                                 adRedBean.setPeople_find(up_finder);
                                 adRedBean.setLevel(tv_level.getText().toString().trim());
@@ -806,7 +806,7 @@ public class RedMarkerDetail extends AppCompatActivity {
                         adRedBean.setQuestion(tv_question.getText().toString().trim());
                         String up_finder = tv_find.getText().toString().trim();
                         if (null == up_finder || "".equals(up_finder)) {
-                            up_finder = StaticMember.USER.getRealname().trim();
+                            up_finder = StaticMember.USER.getUsername().trim();
                         }
                         adRedBean.setPeople_find(up_finder);
                         adRedBean.setLevel(tv_level.getText().toString().trim());

@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+    <!--tools:showIn="@layout/activity_fragment_shenbao"-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="省市区"
+                    android:textColor="#000"
+                    android:paddingRight="20dp"/>
+
+                <TextView
+                    android:id="@+id/tv_city_area"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="设置地点"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/edittext_adress"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="4.0dp"
+                    android:background="@color/white"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/edittext_area_line"/>
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="路段"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/edittext_area_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/edittext_company"/>
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="申请公司名称"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/edittext_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/edittext_company_address" />
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="公司地址"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/edittext_company_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/edittext_person" />
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="法定代表人"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/edittext_person"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/edittext_person" />
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="联系电话号码"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/edittext_contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/edittext_process_contact" />
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="联系人"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/edittext_process_contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/edittext_process_tel" />
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="联系人电话号码"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/edittext_process_tel"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/edittext_email" />
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="联系邮箱"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/edittext_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/edittext_process_tel" />
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="类型"
+                    android:textColor="#000"
+                    android:paddingRight="20dp"/>
+
+                <TextView
+                    android:id="@+id/tv_icon_type"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="广告牌材质"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/edittext_material"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/edittext_wt" />
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="外凸(米)"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/edittext_wt"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:inputType="numberDecimal"/>
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="数量(个)"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/edittext_model"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:inputType="number"/>
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="展示面数(面)"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/edittext_facenum"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:inputType="number"/>
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="长度(米)"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/edittext_ad_x"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:inputType="numberDecimal"/>
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="宽度(米)"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/edittext_ad_y"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:inputType="numberDecimal"/>
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="面积(平方米)"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/edittext_ad_s"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/edittext_li_height" />
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="离地高度(米)"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/edittext_li_height"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:inputType="numberDecimal"/>
+
+            </LinearLayout>
+            <LinearLayout style="@style/common_horizontal_division_line_style" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

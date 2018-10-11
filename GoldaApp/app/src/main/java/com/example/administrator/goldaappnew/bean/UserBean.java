@@ -4,7 +4,7 @@ public class UserBean {
     // { 'uid': '42', 'realname': '王晓', 'resideprovince': '', 'residecity': '',
     // 'residedist': '', 'residecommunity': '' }
     private String uid;
-    private String realname;
+    private String username;
     private String resideprovince;
     private String residecity;
     private String residedist;
@@ -18,12 +18,12 @@ public class UserBean {
         this.uid = uid;
     }
 
-    public String getRealname() {
-        return realname;
+    public String getUsername() {
+        return username;
     }
 
-    public void setRealname(String realname) {
-        this.realname = realname;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getResideprovince() {
@@ -60,7 +60,7 @@ public class UserBean {
 
     @Override
     public String toString() {
-        return "UserBean [uid=" + uid + ", realname=" + realname
+        return "UserBean [uid=" + uid + ", username=" + username
                 + ", resideprovince=" + resideprovince + ", residecity="
                 + residecity + ", residedist=" + residedist
                 + ", residecommunity=" + residecommunity + "]";

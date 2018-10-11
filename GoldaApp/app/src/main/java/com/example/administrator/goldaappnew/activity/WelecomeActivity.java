@@ -154,7 +154,7 @@ public class WelecomeActivity extends Activity implements ActivityCompat.OnReque
         {
             UserBean user = new UserBean();
             user.setUid(loginInfo.getString("uid",""));
-            user.setRealname(loginInfo.getString("realname",""));
+            user.setUsername(loginInfo.getString("username",""));
             user.setResideprovince(loginInfo.getString("resideprovince",""));
             user.setResidecity(loginInfo.getString("residecity",""));
             user.setResidedist(loginInfo.getString("residedist",""));

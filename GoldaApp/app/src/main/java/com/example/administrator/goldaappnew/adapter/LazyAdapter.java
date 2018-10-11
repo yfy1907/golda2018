@@ -26,7 +26,7 @@ public class LazyAdapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
     private ImageLoader imageLoader;
 
-    private ListView mListView;
+//    private ListView mListView;
     private ArrayList<Map<String, String>> listData;
 
     private IDialogControl dialogControl;
@@ -39,8 +39,10 @@ public class LazyAdapter extends BaseAdapter {
         }
         @Override
         public void onClick(View view) {
-            dialog2Control.onShowDialog();// 显示对话框
-            dialog2Control.getPosition(position);
+            if(null != dialog2Control){
+                dialog2Control.onShowDialog();// 显示对话框
+                dialog2Control.getPosition(position);
+            }
         }
     }
 
@@ -51,8 +53,10 @@ public class LazyAdapter extends BaseAdapter {
         }
         @Override
         public void onClick(View view) {
-            dialogControl.onShowDialog();// 显示对话框
-            dialogControl.getPosition(position);
+            if(null != dialogControl){
+                dialogControl.onShowDialog();// 显示对话框
+                dialogControl.getPosition(position);
+            }
         }
     }
 
@@ -62,16 +66,12 @@ public class LazyAdapter extends BaseAdapter {
         void getPosition(int position);
     }
 
-    public LazyAdapter(Activity a, IDialogControl dialogControl,
-                       IDialogControl dialog2Control,
-                       ArrayList<Map<String, String>> paramList, ListView listView) {
+    public LazyAdapter(Activity a, IDialogControl dialogControl, IDialogControl dialog2Control, ArrayList<Map<String, String>> paramList) {
         activity = a;
-        mListView = listView;
         listData = paramList;
 
         this.dialogControl = dialogControl;
         this.dialog2Control = dialog2Control;
-
 
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         imageLoader=new ImageLoader(activity.getApplicationContext());
@@ -103,7 +103,8 @@ public class LazyAdapter extends BaseAdapter {
         tv_title.setTag(listData.get(position).get("title"));
         // 设置添加附件点击
         iv_add_attach.setOnClickListener(new AddFileImageOnClickListener(position));
-        if("现场核查意见书".equals(listData.get(position).get("title")) || "备案通知书".equals(listData.get(position).get("title"))){
+        // 查看详细时，隐藏添加图片按钮
+        if(null == dialogControl){
             iv_add_attach.setVisibility(View.INVISIBLE);
         }else{
             iv_add_attach.setVisibility(View.VISIBLE);

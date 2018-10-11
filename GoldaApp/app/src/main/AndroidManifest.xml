@@ -106,6 +106,10 @@
             android:theme="@style/MyAppTheme"
             android:screenOrientation="landscape"/>
 
+        <activity android:name="com.example.administrator.goldaappnew.activity.DisplayBoardShenbaoDetail"
+            android:theme="@style/MyAppTheme" />
+
+
         <!-- For test only 测试高级功能 -->
         <!-- For test only 测试设置 -->
         <!-- For test only 测试状态通知栏，需要打开的Activity -->

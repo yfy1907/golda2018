@@ -334,7 +334,7 @@ public class GreenMarkerDetail extends AppCompatActivity {
 //                        String up_gis_pic = ad.getB_attach_2();
                         String up_finder = tv_finder.getText().toString().trim();
                         if (null == up_finder || "".equals(up_finder)) {
-                            up_finder = StaticMember.USER.getRealname().trim();
+                            up_finder = StaticMember.USER.getUsername().trim();
                         }
                         AdGreenBean green = new AdGreenBean();
                         green.setBelongto(tv_belong.getText().toString().trim());
@@ -424,7 +424,7 @@ public class GreenMarkerDetail extends AppCompatActivity {
 
                         String up_finder = tv_finder.getText().toString().trim();
                         if (null == up_finder || "".equals(up_finder)) {
-                            up_finder = StaticMember.USER.getRealname().trim();
+                            up_finder = StaticMember.USER.getUsername().trim();
                         }
                         AdGreenBean green = new AdGreenBean();
                         green.setBelongto(tv_belong.getText().toString().trim());

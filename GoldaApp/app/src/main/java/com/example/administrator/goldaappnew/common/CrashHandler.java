@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.example.administrator.goldaappnew.staticClass.StaticMember;
+import com.example.administrator.goldaappnew.utils.AppManager;
 import com.example.administrator.goldaappnew.utils.AssistUtil;
 
 import android.content.Context;
@@ -86,6 +87,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
             } catch (InterruptedException e) {
                 Log.e(TAG, "error : ", e);
             }
+            AppManager.getAppManager().finishAllActivity();
             //退出程序
             android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(1);

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class BoardBean implements Serializable {
 
-    private String de_id;
+    private String de_id = "0";
     private String board_id;
     private String uid;
     private String ac_id;

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.goldaappnew.R;
+import com.example.administrator.goldaappnew.activity.DisplayBoardShenbaoDetail;
 import com.example.administrator.goldaappnew.adapter.EndlessRecyclerOnScrollListener;
 import com.example.administrator.goldaappnew.adapter.LoadMoreAdapter;
 import com.example.administrator.goldaappnew.bean.BoardBean;
@@ -143,11 +144,6 @@ public class FragmentBoard extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-//        String key = getArguments().getString("key");
-//        MyLogger.Log().i("#####------ key="+key);
-//        if("refresh".equals(key)){
-//            getRecycleViewData();
-//        }
     }
 
     /**
@@ -156,22 +152,34 @@ public class FragmentBoard extends BaseFragment {
      */
     private void goShenbaoFragment(BoardBean boardBean){
 
-        /**
-         * 通知主界面切换Tab
-         */
-        Intent intent1 = new Intent("MainFragment");
-        intent1.putExtra("change", "shenbao");
-        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent1);
+        if(null != boardBean){
+            String confirm_status = boardBean.getConfirm_status();
+            if("1".equals(confirm_status)){
+                // 查看
+                Intent intent = new Intent(activity, DisplayBoardShenbaoDetail.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("BoardBean", boardBean);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }else{
+                // 处理
+                /**
+                 * 通知主界面切换Tab
+                 */
+                Intent intent1 = new Intent("MainFragment");
+                intent1.putExtra("change", "shenbao");
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent1);
 
-
-        /**
-         * 通知接收数据
-         */
-        Intent intent = new Intent("myaction");
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("BoardBean", boardBean);
-        intent.putExtras(bundle);
-        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
+                /**
+                 * 通知接收数据
+                 */
+                Intent intent = new Intent("myaction");
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("BoardBean", boardBean);
+                intent.putExtras(bundle);
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
+            }
+        }
     }
 
     public void searchAndShow(final String uid) {

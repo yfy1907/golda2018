@@ -178,6 +178,7 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
     private ProgressDialog mpDialog;          // 等待框
     private BoardBean boardBean;              // 保存数据对象
     private String de_id = "0";       // 申报ID，0表示新增，否则修改
+    private boolean is_allow_update = true; // 是否允许更新， true 是， false 否
 
     protected MyBroadcastReceiver myBroadcastReceiver ;
 
@@ -411,12 +412,14 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         myDialogFileChose.setOnButtonClickListener(this);
 
         addAttachListView = (ListView) view.findViewById(R.id.addAttachListView);
-        listAttachData = new ArrayList<>();
+        initViewPageFileAdapterUI();
+    }
 
+    private void initViewPageFileAdapterUI(){
+        listAttachData = new ArrayList<>();
         attachArray = new String[]{"设置申请书","公司营业执照","个人身份证明","效果图","实景图","规格平面图","产权证书或\n房屋租赁协议"
                 ,"载体安全证明","相关书面协议","场地租用合同","结构设计图","施工图","施工说明书","建安资质证书","施工保证书","规划拍卖意见",
-                "授权人身份证","授权委托书","现场核查意见书","备案通知书"};
-
+                "授权人身份证","授权委托书"};
         for(int i = 0; i < attachArray.length; i++ ){
             Map<String,String> map = new HashMap<>();
             map.put("title",attachArray[i]);
@@ -426,12 +429,11 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
             map.put("file_id",""+i);
             listAttachData.add(map);
         }
-//        attachListViewAdapter = new AttachListViewAdapter(activity, AddFileDialogControl, RemoveFileDialogControl,listAttachData,addAttachListView);
-//        addAttachListView.setAdapter(attachListViewAdapter);
 
-        lazyAdapter = new LazyAdapter(activity, AddFileDialogControl, RemoveFileDialogControl,listAttachData,addAttachListView);
+        lazyAdapter = new LazyAdapter(activity, AddFileDialogControl, RemoveFileDialogControl,listAttachData);
         addAttachListView.setAdapter(lazyAdapter);
     }
+
 
     /**
      * 保存成功后，清除表单内容
@@ -551,9 +553,11 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         listAttachData.get(16).put("file_name",boardBean.getB_attach_17());
         listAttachData.get(17).put("file_name",boardBean.getB_attach_18());
 
-        // 现场核查意见书 b_attach_19, 备案通知书 b_attach_20 (审核完成了以后让申报的人看到)
-        listAttachData.get(18).put("file_name",boardBean.getB_attach_19());
-        listAttachData.get(19).put("file_name",boardBean.getB_attach_20());
+        if(listAttachData.size() >=19){
+            // 现场核查意见书 b_attach_19, 备案通知书 b_attach_20 (审核完成了以后让申报的人看到)
+            listAttachData.get(18).put("file_name",boardBean.getB_attach_19());
+            listAttachData.get(19).put("file_name",boardBean.getB_attach_20());
+        }
 
         lazyAdapter.notifyDataSetChanged();
     }
@@ -851,7 +855,6 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
                     listAttachData.get(choseFileIndex).put("file_name",StaticMember.RemotePath + today + "/" + ImageFileName);
                     MyLogger.Log().i("## 操作成功::: ImageFileName："+ ImageFileName);
 
-//                    attachListViewAdapter.update(choseFileIndex,addAttachListView);
 //                    attachListViewAdapter.update(choseFileIndex);
                     lazyAdapter.notifyDataSetChanged();
 
@@ -1149,11 +1152,6 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
     public void onResume() {
         // TODO Auto-generated method stub
         super.onResume();
-//        Object obj = getArguments().getSerializable("BoardBean");
-//        if(null != obj){
-//            BoardBean boardBean = (BoardBean) obj;
-//            Log.i("","### 广告牌接收参数不为空！！");
-//        }
     }
 
     //内部类实现viewpager的适配器

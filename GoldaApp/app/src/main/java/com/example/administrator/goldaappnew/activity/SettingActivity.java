@@ -72,7 +72,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        tvUserName.setText(StaticMember.USER.getRealname());
+        tvUserName.setText(StaticMember.USER.getUsername());
         tv_localSpace=getSharedPreferences("setting",MODE_PRIVATE).getInt("local_space",1000);
         if (tv_localSpace==1000)
             tvLocalSpace.setText("默认");

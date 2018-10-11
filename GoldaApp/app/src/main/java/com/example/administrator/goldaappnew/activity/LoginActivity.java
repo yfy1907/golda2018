@@ -1,6 +1,7 @@
 package com.example.administrator.goldaappnew.activity;
 import com.example.administrator.goldaappnew.R;
 import com.example.administrator.goldaappnew.bean.UserBean;
+import com.example.administrator.goldaappnew.common.MyLogger;
 import com.example.administrator.goldaappnew.staticClass.StaticMember;
 import com.example.administrator.goldaappnew.utils.HttpTools;
 
@@ -202,32 +203,32 @@ public class LoginActivity extends Activity {
                                 "登录失败，请检查用户名或密码是否正确",
                                 Toast.LENGTH_SHORT).show();
                     }else {
-                        if (isAutoLogin==true) {
-
-                            SharedPreferences.Editor editor = loginInfo.edit();
-                            editor.putBoolean("auto_login", isAutoLogin);
-                            editor.putString("name", et_username.getText().toString());
-                            editor.putString("password", et_psw.getText().toString());
-                            editor.putString("uid", userList.get(0).getUid());
-                            editor.putString("realname", userList.get(0).getRealname());
-                            editor.putString("resideprovince", userList.get(0).getResideprovince());
-                            editor.putString("residecity", userList.get(0).getResidecity());
-                            editor.putString("residedist", userList.get(0).getResidedist());
-                            editor.putString("residecommunity", userList.get(0).getResidecommunity());
-                            editor.commit();
-                        }else {
-                            SharedPreferences.Editor editor = loginInfo.edit();
-                            editor.putBoolean("auto_login", isAutoLogin);
-                            editor.putString("name","" );
-                            editor.putString("password","");
-                            editor.putString("uid", "");
-                            editor.putString("realname", "");
-                            editor.putString("resideprovince","");
-                            editor.putString("residecity", "");
-                            editor.putString("residedist", "");
-                            editor.putString("residecommunity","");
-                            editor.commit();
-                        }
+//                        if (isAutoLogin==true) {
+//
+//                            SharedPreferences.Editor editor = loginInfo.edit();
+//                            editor.putBoolean("auto_login", isAutoLogin);
+//                            editor.putString("name", et_username.getText().toString());
+//                            editor.putString("password", et_psw.getText().toString());
+//                            editor.putString("uid", userList.get(0).getUid());
+//                            editor.putString("realname", userList.get(0).getUsername());
+//                            editor.putString("resideprovince", userList.get(0).getResideprovince());
+//                            editor.putString("residecity", userList.get(0).getResidecity());
+//                            editor.putString("residedist", userList.get(0).getResidedist());
+//                            editor.putString("residecommunity", userList.get(0).getResidecommunity());
+//                            editor.commit();
+//                        }else {
+//                            SharedPreferences.Editor editor = loginInfo.edit();
+//                            editor.putBoolean("auto_login", isAutoLogin);
+//                            editor.putString("name","" );
+//                            editor.putString("password","");
+//                            editor.putString("uid", "");
+//                            editor.putString("username", "");
+//                            editor.putString("resideprovince","");
+//                            editor.putString("residecity", "");
+//                            editor.putString("residedist", "");
+//                            editor.putString("residecommunity","");
+//                            editor.commit();
+//                        }
 
                         if(null == userList.get(0)){
                             Toast.makeText(LoginActivity.this, "登录失败，当前账号信息异常", Toast.LENGTH_SHORT).show();
@@ -239,18 +240,19 @@ public class LoginActivity extends Activity {
                             return;
                         }
 
-                        SharedPreferences.Editor editor = loginInfo.edit();
-                        editor.putBoolean("auto_login", isAutoLogin);
-                        editor.putString("name", et_username.getText().toString());
-                        editor.putString("password", et_psw.getText().toString());
-                        editor.putString("uid", userList.get(0).getUid());
-                        editor.putString("realname", userList.get(0).getRealname());
-                        editor.putString("resideprovince", userList.get(0).getResideprovince());
-                        editor.putString("residecity", userList.get(0).getResidecity());
-                        editor.putString("residedist", userList.get(0).getResidedist());
-                        editor.putString("residecommunity", userList.get(0).getResidecommunity());
-                        editor.commit();
+//                        SharedPreferences.Editor editor = loginInfo.edit();
+//                        editor.putBoolean("auto_login", isAutoLogin);
+//                        editor.putString("name", et_username.getText().toString());
+//                        editor.putString("password", et_psw.getText().toString());
+//                        editor.putString("uid", userList.get(0).getUid());
+//                        editor.putString("username", userList.get(0).getUsername());
+//                        editor.putString("resideprovince", userList.get(0).getResideprovince());
+//                        editor.putString("residecity", userList.get(0).getResidecity());
+//                        editor.putString("residedist", userList.get(0).getResidedist());
+//                        editor.putString("residecommunity", userList.get(0).getResidecommunity());
+//                        editor.commit();
 
+                        MyLogger.Log().i("## 用户名："+StaticMember.USER.getUsername());
                         // Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         Intent intent = new Intent(LoginActivity.this, MainFragmentActivity.class);
                         startActivity(intent);

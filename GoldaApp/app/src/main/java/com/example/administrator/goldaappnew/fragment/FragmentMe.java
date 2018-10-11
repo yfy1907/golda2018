@@ -19,6 +19,7 @@ import com.example.administrator.goldaappnew.activity.LoginActivity;
 import com.example.administrator.goldaappnew.activity.OpenWebActivity;
 import com.example.administrator.goldaappnew.activity.SoftInfoActivity;
 import com.example.administrator.goldaappnew.activity.WorkCountActivity;
+import com.example.administrator.goldaappnew.common.MyLogger;
 import com.example.administrator.goldaappnew.staticClass.StaticMember;
 
 import butterknife.BindView;
@@ -97,7 +98,8 @@ public class FragmentMe extends BaseFragment {
     }
 
     private void initData() {
-        tvUserName.setText(StaticMember.USER.getRealname());
+//        MyLogger.Log().i("## 用户名：="+StaticMember.USER.getUsername());
+        tvUserName.setText(StaticMember.USER.getUsername());
         tv_localSpace = this.activity.getSharedPreferences("setting",MODE_PRIVATE).getInt("local_space",1000);
         if (tv_localSpace==1000)
             tvLocalSpace.setText("默认");

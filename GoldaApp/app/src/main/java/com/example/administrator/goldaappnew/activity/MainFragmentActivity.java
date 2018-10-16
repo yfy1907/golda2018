@@ -27,8 +27,12 @@ import com.example.administrator.goldaappnew.fragment.FragmentBoard;
 import com.example.administrator.goldaappnew.fragment.FragmentShenbao;
 import com.example.administrator.goldaappnew.fragment.FragmentMe;
 import com.example.administrator.goldaappnew.fragment.FragmentXuncha;
+import com.example.administrator.goldaappnew.jpush.JpushMainActivity;
 import com.example.administrator.goldaappnew.jpush.LocalBroadcastManager;
 import com.example.administrator.goldaappnew.utils.AppManager;
+import com.example.administrator.goldaappnew.utils.StringUtil;
+
+import cn.jpush.android.api.JPushInterface;
 
 public class MainFragmentActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -57,6 +61,12 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
 
 
     protected LocalBroadcastManager localBroadcastManager ;
+    //for receive customer msg from jpush server
+    private MessageReceiver mMessageReceiver;
+    public static final String MESSAGE_RECEIVED_ACTION = "com.golda.jpush.MESSAGE_RECEIVED_ACTION";
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_MESSAGE = "message";
+    public static final String KEY_EXTRAS = "extras";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,12 +78,9 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
         StrictMode.setVmPolicy(builder.build());
         builder.detectFileUriExposure();
 
-
-        localBroadcastManager = LocalBroadcastManager.getInstance(this);
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("MainFragment");
-        localBroadcastManager.registerReceiver(mAdReceiver, intentFilter);
-
+        // 推送
+        registerMessageReceiver();
+        initPush();
 
         AppManager.getAppManager().finishActivity(MainFragmentActivity.class);
         Log.i("", "#### onCreate。。。。————————————————————>>>>>>>>>");
@@ -101,24 +108,62 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
         };
     }
 
-    private BroadcastReceiver mAdReceiver = new BroadcastReceiver() {
+    // 初始化 JPush。如果已经初始化，但没有登录成功，则执行重新登录。
+    private void initPush(){
+        JPushInterface.init(getApplicationContext());
+    }
+
+    /**
+     * 注册推送消息
+     */
+    public void registerMessageReceiver() {
+
+        mMessageReceiver = new MessageReceiver();
+        localBroadcastManager = LocalBroadcastManager.getInstance(this);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("MainFragment");
+
+        intentFilter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+        intentFilter.addAction(MESSAGE_RECEIVED_ACTION);
+        localBroadcastManager.registerReceiver(mMessageReceiver, intentFilter);
+    }
+
+    public class MessageReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String change = intent.getStringExtra("change");
-            Log.w("","#### change==="+change);
-            if ("shenbao".equals(change)) {
-                // 这地方只能在主线程中刷新UI,子线程中无效，因此用Handler来实现
-                new Handler().post(new Runnable() {
-                    public void run() {
-                        //在这里来写你需要刷新的地方
-                        clickTab(shenbaoFragment);
-                    }
-                });
-            }else if("board".equals(change)){
+            try {
+                String change = intent.getStringExtra("change");
+                Log.w("","#### change==="+change);
+                if ("shenbao".equals(change)) {
+                    // 这地方只能在主线程中刷新UI,子线程中无效，因此用Handler来实现
+                    new Handler().post(new Runnable() {
+                        public void run() {
+                            //在这里来写你需要刷新的地方
+                            clickTab(shenbaoFragment);
+                        }
+                    });
+                }else if("board".equals(change)){
 
+                }
+                if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
+                    String messge = intent.getStringExtra(KEY_MESSAGE);
+                    String extras = intent.getStringExtra(KEY_EXTRAS);
+                    StringBuilder showMsg = new StringBuilder();
+                    showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
+                    if (!StringUtil.isEmpty(extras)) {
+                        showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
+                    }
+                    setCostomMsg(showMsg.toString());
+                }
+            } catch (Exception e){
             }
         }
-    };
+    }
+
+    private void setCostomMsg(String message){
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    }
+
 
     /**
      * 初始化所有fragment
@@ -357,7 +402,7 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
         super.onDestroy();
         //取消注册广播,防止内存泄漏
         try{
-            localBroadcastManager.unregisterReceiver( mAdReceiver );
+            localBroadcastManager.unregisterReceiver( mMessageReceiver );
         }catch(Exception ex)
         {
             ex.printStackTrace();

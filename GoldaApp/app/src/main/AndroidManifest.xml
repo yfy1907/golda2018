@@ -228,7 +228,7 @@
         </receiver>
         <!-- Required  . Enable it you can get statistics data with channel -->
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
-        <meta-data android:name="JPUSH_APPKEY" android:value="042ebda9294cca22c25ec82d" /> <!--  </>值来自开发者平台取得的AppKey-->
+        <meta-data android:name="JPUSH_APPKEY" android:value="585bc438c1a1473615d06af9" /> <!--  </>值来自开发者平台取得的AppKey-->
 
 
 
@@ -269,5 +269,14 @@
     <uses-permission android:name="android.permission.RESTART_PACKAGES" />
     <uses-permission android:name="android.permission.INSTALL_PACKAGES"
         tools:ignore="ProtectedPermissions" />
+
+    <!-- Optional for location -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
 </manifest>

@@ -3,6 +3,7 @@ package com.example.administrator.goldaappnew.fragment;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -36,6 +37,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -55,6 +57,7 @@ import com.example.administrator.goldaappnew.jpush.LocalBroadcastManager;
 import com.example.administrator.goldaappnew.staticClass.StaticMember;
 import com.example.administrator.goldaappnew.utils.AssistUtil;
 import com.example.administrator.goldaappnew.utils.CaremaUtil;
+import com.example.administrator.goldaappnew.utils.CommonTools;
 import com.example.administrator.goldaappnew.utils.DateHelper;
 import com.example.administrator.goldaappnew.utils.FileUtil;
 import com.example.administrator.goldaappnew.utils.HttpTools;
@@ -70,7 +73,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,6 +114,11 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
     private String icon_class = "";  // 请选择种类（类型）
     private String icon_cnname = ""; // 请选择标识（类型）
 
+
+    // 分类规划下拉选择
+    private ArrayList<JsonBean> optionsPlan1Items = new ArrayList<JsonBean>();
+    private ArrayList<ArrayList<String>> optionsPlan2Items = new ArrayList<ArrayList<String>>();
+
     private Unbinder unbinder;
     @BindView(R.id.tv_city_area)
     TextView tv_city_area;  // 省份、城市、地区
@@ -133,6 +144,8 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
     TextView tv_icon_type; // 类型
     @BindView(R.id.edittext_material)
     EditText edittext_material; // 广告牌材质
+    @BindView(R.id.edittext_material_time)
+    EditText edittext_material_time; // 材质有效期
     @BindView(R.id.edittext_wt)
     EditText edittext_wt; // 外凸(米)
     @BindView(R.id.edittext_model)
@@ -147,6 +160,15 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
     EditText edittext_ad_s; // 面积(平方米)
     @BindView(R.id.edittext_li_height)
     EditText edittext_li_height; // 离地高度(米)
+
+
+    @BindView(R.id.tv_plan)
+    TextView tv_plan;  // 规划分类
+    @BindView(R.id.edittext_json_id)
+    EditText edittext_json_id; // 规划分类ID
+
+    private String cat_name = "";    // 计划分类总类
+    private String plan_name = ""; // 计划名称
 
     // 申报项目保存
 //    @BindView(R.id.add_save)
@@ -202,7 +224,7 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         add_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("","点击保存按钮了。。。。");
+                // Log.i("","点击保存按钮了。。。。");
                 submitSaveData();
             }
         });
@@ -259,10 +281,14 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         mTabHost.setCurrentTab(1);
         mTabHost.setCurrentTab(0);
 
+        // 初始化省市区数据
         initJsonData();
 
+        // 初始化广告牌类型数据
         initAdTypeJsonData();
 
+        // 初始规划分类
+        initPlanJsonData();
 
         /*
          * 防止键盘挡住输入框 不希望遮挡设置activity属性 android:windowSoftInputMode="adjustPan"
@@ -272,6 +298,44 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         // 锁定屏幕
         this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+    }
+
+
+    private Calendar calendar;
+
+    /**
+     * 选择日期控件
+     * @param textView
+     */
+    private void showDatePicDialog(final TextView textView){
+
+        calendar= Calendar.getInstance();
+        calendar.setTime(new Date());
+        int year=calendar.get(Calendar.YEAR);
+        int month=calendar.get(Calendar.MONTH);
+        int day=calendar.get(Calendar.DAY_OF_MONTH);
+
+        final DatePickerDialog.OnDateSetListener datePickerDialog= new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                String mMonth,mDay,mTime;
+                if (i1<9)
+                    mMonth="0"+(i1+1);
+                else
+                    mMonth=""+(i1+1);
+                if (i2<10)
+                    mDay="0"+i2;
+                else
+                    mDay=""+i2;
+
+                mTime=i+"-"+mMonth+"-"+mDay;
+
+                textView.setText(mTime);
+
+            }
+        };
+        new DatePickerDialog(this.activity,datePickerDialog,year,month,day).show();
     }
 
     @Override
@@ -393,6 +457,14 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         // 保存按钮隐藏（选择省市区、广告牌类型时显示）
         add_save.setVisibility(View.GONE);
 
+//        edittext_material_time = (EditText) view.findViewById(R.id.edittext_material_time);
+        edittext_material_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePicDialog(edittext_material_time);
+            }
+        });
+
         /**
          * 长、宽计算出面积 监听
          */
@@ -419,13 +491,18 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         listAttachData = new ArrayList<>();
         attachArray = new String[]{"设置申请书","公司营业执照","个人身份证明","效果图","实景图","规格平面图","产权证书或\n房屋租赁协议"
                 ,"载体安全证明","相关书面协议","场地租用合同","结构设计图","施工图","施工说明书","建安资质证书","施工保证书","规划拍卖意见",
-                "授权人身份证","授权委托书"};
+                "授权人身份证","授权委托书","规划相关截图"};
         for(int i = 0; i < attachArray.length; i++ ){
             Map<String,String> map = new HashMap<>();
             map.put("title",attachArray[i]);
             map.put("file_path","");
             map.put("file_name","");
-            map.put("file_key","b_attach_"+(i+1));
+            if("规划相关截图".equals(attachArray[i])){
+                // 规划相关截图 (20181028 新加字段：b_attach_21 )
+                map.put("file_key","b_attach_21");
+            }else{
+                map.put("file_key","b_attach_"+(i+1));
+            }
             map.put("file_id",""+i);
             listAttachData.add(map);
         }
@@ -433,7 +510,6 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         lazyAdapter = new LazyAdapter(activity, AddFileDialogControl, RemoveFileDialogControl,listAttachData);
         addAttachListView.setAdapter(lazyAdapter);
     }
-
 
     /**
      * 保存成功后，清除表单内容
@@ -460,6 +536,7 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         edittext_email.setText("");
         tv_icon_type.setText("");
         edittext_material.setText("");
+        edittext_material_time.setText("");
         edittext_wt.setText("");
         edittext_model.setText("");
         edittext_facenum.setText("");
@@ -467,6 +544,9 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         edittext_ad_y.setText("");
         edittext_ad_s.setText("");
         edittext_li_height.setText("");
+
+        tv_plan.setText("");
+        edittext_json_id.setText("");
 
         // 隐藏保存按钮
         add_save.setVisibility(View.GONE);
@@ -505,6 +585,8 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         edittext_email.setText(boardBean.getEmail());
 
         edittext_material.setText(boardBean.getMaterial());
+        edittext_material_time.setText(boardBean.getMaterial_time());
+
         edittext_wt.setText(boardBean.getWt());
         edittext_model.setText(boardBean.getModel());
         edittext_facenum.setText(boardBean.getFacenum());
@@ -523,6 +605,7 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         }
 
         edittext_li_height.setText(boardBean.getLi_height());
+        edittext_json_id.setText(boardBean.getJson_id());
 
         // 1查看，0处理
         if("1".equals(boardBean.getConfirm_status())){
@@ -553,10 +636,24 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         listAttachData.get(16).put("file_name",boardBean.getB_attach_17());
         listAttachData.get(17).put("file_name",boardBean.getB_attach_18());
 
-        if(listAttachData.size() >=19){
-            // 现场核查意见书 b_attach_19, 备案通知书 b_attach_20 (审核完成了以后让申报的人看到)
-            listAttachData.get(18).put("file_name",boardBean.getB_attach_19());
-            listAttachData.get(19).put("file_name",boardBean.getB_attach_20());
+        if(listAttachData.size() >=21){
+            if("现场核查意见书".equals(listAttachData.get(18).get("title"))){
+                // 现场核查意见书 b_attach_19, 备案通知书 b_attach_20 (审核完成了以后让申报的人看到)
+                listAttachData.get(18).put("file_name",boardBean.getB_attach_19());
+            }
+            if("备案通知书".equals(listAttachData.get(19).get("title"))){
+                // 现场核查意见书 b_attach_19, 备案通知书 b_attach_20 (审核完成了以后让申报的人看到)
+                listAttachData.get(19).put("file_name",boardBean.getB_attach_20());
+            }
+            if("规划相关截图".equals(listAttachData.get(20).get("title"))){
+                // 后补字段
+                listAttachData.get(20).put("file_name",boardBean.getB_attach_21());
+            }
+        }else if(listAttachData.size() >=19){
+            if("规划相关截图".equals(listAttachData.get(18).get("title"))){
+                // 后补字段
+                listAttachData.get(18).put("file_name",boardBean.getB_attach_21());
+            }
         }
 
         lazyAdapter.notifyDataSetChanged();
@@ -684,6 +781,7 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         boardBean.setProcess_tel(edittext_process_tel.getText().toString());    // 联系电话号码
         boardBean.setEmail(edittext_email.getText().toString());    // 联系邮箱
         boardBean.setMaterial(edittext_material.getText().toString()); // 广告牌材质
+        boardBean.setMaterial_time(edittext_material_time.getText().toString()); // 广告牌材质有效期
         boardBean.setWt(edittext_wt.getText().toString());  // 外凸(米)
         boardBean.setModel(edittext_model.getText().toString());    // 数量(个)
         boardBean.setFacenum(edittext_facenum.getText().toString()); // 展示面数(面)
@@ -691,6 +789,10 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         boardBean.setAd_y(edittext_ad_y.getText().toString());  // 宽度(米)
         boardBean.setAd_x(edittext_ad_x.getText().toString());  // 面积(平方米)
         boardBean.setLi_height(edittext_li_height.getText().toString());    // 离地高度(米)
+
+        boardBean.setCat_name(cat_name);    // 计划分类
+        boardBean.setPlan_name(plan_name);  // 计划分类名称
+        boardBean.setJson_id(edittext_json_id.getText().toString());    // 分类ID
 
         boardBean.setB_attach_1(listAttachData.get(0).get("file_name"));
         boardBean.setB_attach_2(listAttachData.get(1).get("file_name"));
@@ -710,6 +812,8 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         boardBean.setB_attach_16(listAttachData.get(15).get("file_name"));
         boardBean.setB_attach_17(listAttachData.get(16).get("file_name"));
         boardBean.setB_attach_18(listAttachData.get(17).get("file_name"));
+
+        boardBean.setB_attach_21(listAttachData.get(18).get("file_name"));
 
         int imageSize = 0;
         for(int i=0; i<listAttachData.size() ; i++){
@@ -853,7 +957,7 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
                     // String fileName = FileUtil.getFileNameByPath(ImagefilePath);
                     listAttachData.get(choseFileIndex).put("file_path",ImagefilePath);
                     listAttachData.get(choseFileIndex).put("file_name",StaticMember.RemotePath + today + "/" + ImageFileName);
-                    MyLogger.Log().i("## 操作成功::: ImageFileName："+ ImageFileName);
+                    // MyLogger.Log().i("## 操作成功::: ImageFileName："+ ImageFileName);
 
 //                    attachListViewAdapter.update(choseFileIndex);
                     lazyAdapter.notifyDataSetChanged();
@@ -1263,6 +1367,15 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
                 showPickerViewAdType();
             }
         });
+
+        // 规划分类
+        tv_plan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPickerViewPlan();
+            }
+        });
+
     }
 
     /**
@@ -1334,6 +1447,39 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
           /*pvOptions.setPicker(options1Items);//一级选择器
         pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
         pvOptions.setPicker(optionsType1Items, optionsType2Items, optionsType3Items);//三级选择器
+        pvOptions.show();
+    }
+
+    /**
+     * 选择规划分类
+     */
+    private void showPickerViewPlan() {
+        if(optionsPlan1Items.size() == 0){
+            Toast.makeText(this.activity,"数据未加载。",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        OptionsPickerView pvOptions = new OptionsPickerView.Builder(activity, new OptionsPickerView.OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                //返回的分别是三个级别的选中位置
+                String text = optionsPlan1Items.get(options1).getPickerViewText() + "  \n"+
+                        optionsPlan2Items.get(options1).get(options2);
+
+                cat_name = optionsPlan1Items.get(options1).getPickerViewText();
+                plan_name = optionsPlan2Items.get(options1).get(options2);
+
+                add_save.setVisibility(View.VISIBLE);
+                tv_plan.setText(Html.fromHtml(text));
+            }
+        }).setTitleText("")
+                .setDividerColor(Color.GRAY)
+                .setTextColorCenter(Color.GRAY)
+                .setContentTextSize(14)
+                .setOutSideCancelable(false)
+                .build();
+          /*pvOptions.setPicker(optionsPlan1Items);//一级选择器 */
+        pvOptions.setPicker(optionsPlan1Items, optionsPlan2Items);//二级选择器
+        /*pvOptions.setPicker(optionsPlan1Items, optionsPlan2Items, optionsType3Items);//三级选择器 */
         pvOptions.show();
     }
 
@@ -1438,6 +1584,39 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
              * 添加地区数据
              */
             optionsType3Items.add(Province_AreaList);
+        }
+    }
+
+    /**
+     * 加载分类规划数据
+     */
+    private void initPlanJsonData() {   //解析数据
+        /**
+         * 注意：assets 目录下的Json文件仅供参考，实际使用可自行替换文件
+         * 关键逻辑在于循环体
+         *
+         * */
+        //  获取json数据
+        String JsonData = JsonFileReader.getJson(activity, "plan_data.json");
+        ArrayList<JsonBean> jsonBean = parseData(JsonData);//用Gson 转成实体
+        /**
+         * 添加数据
+         *
+         * 注意：如果是添加的JavaBean实体，则实体类需要实现 IPickerViewData 接口，
+         * PickerView会通过getPickerViewText方法获取字符串显示出来。
+         */
+        optionsPlan1Items = jsonBean;
+        for (int i = 0; i < jsonBean.size(); i++) {//遍历省份
+            ArrayList<String> CityList = new ArrayList<>();//该省的城市列表（第二级）
+            for (int c = 0; c < jsonBean.get(i).getCityList().size(); c++) {//遍历该分类下的二级数据
+                String CityName = jsonBean.get(i).getCityList().get(c).getName();
+                CityList.add(CityName);//添加二级分类
+            }
+            /**
+             * 添加 二级数据
+             */
+            optionsPlan2Items.add(CityList);
+
         }
     }
 

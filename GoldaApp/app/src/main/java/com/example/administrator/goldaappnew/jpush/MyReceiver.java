@@ -30,7 +30,7 @@ public class MyReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         try {
             Bundle bundle = intent.getExtras();
-            Logger.d(TAG, "[MyReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
+            Logger.d(TAG, "[MyReceiver] 接收到消息啦：：：onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
 
             if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
                 String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);

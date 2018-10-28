@@ -31,15 +31,16 @@
         </provider>
 
         <!-- 百度地图API_KEY  上线-->
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="GB1GojgN6beaR0Wxqqlqo0Bf27QN4dAd" />
-        <!-- 百度地图API_KEY  本机测试 -->
         <!--
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="OUR7I0V5FbDGmfWznihLgxoCUCpQWeW6" />
+            android:value="GB1GojgN6beaR0Wxqqlqo0Bf27QN4dAd" />
         -->
+        <!-- 百度地图API_KEY  本机测试 -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="OUR7I0V5FbDGmfWznihLgxoCUCpQWeW6" />
+
         <!-- 百度地图定位服务 -->
         <service
             android:name="com.baidu.location.f"
@@ -278,5 +279,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+
+    <!-- 推送权限 -->
+    <uses-permission android:name="com.example.administrator.goldaappnew.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    
 
 </manifest>

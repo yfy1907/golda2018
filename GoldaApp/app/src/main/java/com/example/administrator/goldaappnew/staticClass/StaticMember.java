@@ -61,7 +61,7 @@ public class StaticMember {
     public static final int NUM = 100;
 
     // 官网地址
-    public static final String MyWebUrl = "http://cs.jdjk.net/forum.php?mobile=no";
+    public static final String MyWebUrl = "http://yz.jdjk.net/";
 
     /*数据接口*/
     public static final int ADLIST_GREEN = 101;

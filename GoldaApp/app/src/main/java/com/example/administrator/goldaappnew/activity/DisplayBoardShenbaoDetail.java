@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabWidget;
@@ -27,6 +28,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import butterknife.BindView;
 
 /**
  * 查看广告牌申报详细
@@ -45,6 +48,7 @@ public class DisplayBoardShenbaoDetail  extends AppCompatActivity {
     TextView edittext_email; // 联系邮箱
     TextView tv_icon_type; // 类型
     TextView edittext_material; // 广告牌材质
+    TextView edittext_material_time; // 广告牌材质有效期
     TextView edittext_wt; // 外凸(米)
     TextView edittext_model; // 数量(个)
     TextView edittext_facenum; // 展示面数(面)
@@ -52,7 +56,12 @@ public class DisplayBoardShenbaoDetail  extends AppCompatActivity {
     TextView edittext_ad_y; // 宽度(米)
     TextView edittext_ad_s; // 面积(平方米)
     TextView edittext_li_height; // 离地高度(米)
+
+    TextView edittext_plan; // 计划分类
+    TextView edittext_json_id; // 分类ID
+
     TextView text_op_tips; // 附件上传提示
+
 
     private ViewPager viewPager = null;
     private List<View> viewContainter = new ArrayList<View>();   //存放容器
@@ -201,6 +210,7 @@ public class DisplayBoardShenbaoDetail  extends AppCompatActivity {
         edittext_email = (TextView) view.findViewById(R.id.edittext_email);
 
         edittext_material = (TextView) view.findViewById(R.id.edittext_material);
+        edittext_material_time = (TextView) view.findViewById(R.id.edittext_material_time);
         edittext_wt = (TextView) view.findViewById(R.id.edittext_wt);
         edittext_model = (TextView) view.findViewById(R.id.edittext_model);
         edittext_facenum = (TextView) view.findViewById(R.id.edittext_facenum);
@@ -210,6 +220,8 @@ public class DisplayBoardShenbaoDetail  extends AppCompatActivity {
 
         edittext_ad_s = (TextView) view.findViewById(R.id.edittext_ad_s);
         edittext_li_height = (TextView) view.findViewById(R.id.edittext_li_height);
+        edittext_plan = (TextView) view.findViewById(R.id.edittext_plan);
+        edittext_json_id = (TextView) view.findViewById(R.id.edittext_json_id);
     }
 
     private void initViewPage2UI(View view){
@@ -241,6 +253,8 @@ public class DisplayBoardShenbaoDetail  extends AppCompatActivity {
         edittext_email.setText(boardBean.getEmail());
 
         edittext_material.setText(boardBean.getMaterial());
+        edittext_material_time.setText(boardBean.getMaterial_time());
+
         edittext_wt.setText(boardBean.getWt());
         edittext_model.setText(boardBean.getModel());
         edittext_facenum.setText(boardBean.getFacenum());
@@ -259,17 +273,18 @@ public class DisplayBoardShenbaoDetail  extends AppCompatActivity {
         }
 
         edittext_li_height.setText(boardBean.getLi_height());
-
+        edittext_plan.setText(boardBean.getCat_name()+" "+boardBean.getPlan_name());
+        edittext_json_id.setText(boardBean.getJson_id());
 
 
         if(display_19_20_attach){
             attachArray = new String[]{"设置申请书","公司营业执照","个人身份证明","效果图","实景图","规格平面图","产权证书或\n房屋租赁协议"
                     ,"载体安全证明","相关书面协议","场地租用合同","结构设计图","施工图","施工说明书","建安资质证书","施工保证书","规划拍卖意见",
-                    "授权人身份证","授权委托书","现场核查意见书","备案通知书"};
+                    "授权人身份证","授权委托书","现场核查意见书","备案通知书","规划相关截图"};
         }else{
             attachArray = new String[]{"设置申请书","公司营业执照","个人身份证明","效果图","实景图","规格平面图","产权证书或\n房屋租赁协议"
                     ,"载体安全证明","相关书面协议","场地租用合同","结构设计图","施工图","施工说明书","建安资质证书","施工保证书","规划拍卖意见",
-                    "授权人身份证","授权委托书"};
+                    "授权人身份证","授权委托书","规划相关截图"};
         }
 
         for(int i = 0; i < attachArray.length; i++ ){
@@ -277,6 +292,12 @@ public class DisplayBoardShenbaoDetail  extends AppCompatActivity {
             map.put("title",attachArray[i]);
             map.put("file_path","");
             map.put("file_name","");
+            if("规划相关截图".equals(attachArray[i])){
+                // 规划相关截图 (20181028 新加字段：b_attach_21 )
+                map.put("file_key","b_attach_21");
+            }else{
+                map.put("file_key","b_attach_"+(i+1));
+            }
             map.put("file_key","b_attach_"+(i+1));
             map.put("file_id",""+i);
             listAttachData.add(map);
@@ -284,8 +305,6 @@ public class DisplayBoardShenbaoDetail  extends AppCompatActivity {
         lazyAdapter = new LazyAdapter(this, null, null,listAttachData);
         addAttachListView.setAdapter(lazyAdapter);
 
-
-        Log.i("","加载信息了啦啦啦啦");
         // 显示附件列表
         listAttachData.get(0).put("file_name",boardBean.getB_attach_1());
         listAttachData.get(1).put("file_name",boardBean.getB_attach_2());
@@ -306,10 +325,25 @@ public class DisplayBoardShenbaoDetail  extends AppCompatActivity {
         listAttachData.get(16).put("file_name",boardBean.getB_attach_17());
         listAttachData.get(17).put("file_name",boardBean.getB_attach_18());
 
-        if(listAttachData.size() >=19){
-            // 现场核查意见书 b_attach_19, 备案通知书 b_attach_20 (审核完成了以后让申报的人看到)
-            listAttachData.get(18).put("file_name",boardBean.getB_attach_19());
-            listAttachData.get(19).put("file_name",boardBean.getB_attach_20());
+
+        if(listAttachData.size() >=21){
+            if("现场核查意见书".equals(listAttachData.get(18).get("title"))){
+                // 现场核查意见书 b_attach_19, 备案通知书 b_attach_20 (审核完成了以后让申报的人看到)
+                listAttachData.get(18).put("file_name",boardBean.getB_attach_19());
+            }
+            if("备案通知书".equals(listAttachData.get(19).get("title"))){
+                // 现场核查意见书 b_attach_19, 备案通知书 b_attach_20 (审核完成了以后让申报的人看到)
+                listAttachData.get(19).put("file_name",boardBean.getB_attach_20());
+            }
+            if("规划相关截图".equals(listAttachData.get(20).get("title"))){
+                // 后补字段
+                listAttachData.get(20).put("file_name",boardBean.getB_attach_21());
+            }
+        }else if(listAttachData.size() >=19){
+            if("规划相关截图".equals(listAttachData.get(18).get("title"))){
+                // 后补字段
+                listAttachData.get(18).put("file_name",boardBean.getB_attach_21());
+            }
         }
 
         lazyAdapter.notifyDataSetChanged();

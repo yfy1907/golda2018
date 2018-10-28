@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -27,12 +28,18 @@ import com.example.administrator.goldaappnew.fragment.FragmentBoard;
 import com.example.administrator.goldaappnew.fragment.FragmentShenbao;
 import com.example.administrator.goldaappnew.fragment.FragmentMe;
 import com.example.administrator.goldaappnew.fragment.FragmentXuncha;
+import com.example.administrator.goldaappnew.jpush.ExampleUtil;
 import com.example.administrator.goldaappnew.jpush.JpushMainActivity;
 import com.example.administrator.goldaappnew.jpush.LocalBroadcastManager;
+import com.example.administrator.goldaappnew.staticClass.StaticMember;
 import com.example.administrator.goldaappnew.utils.AppManager;
 import com.example.administrator.goldaappnew.utils.StringUtil;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 public class MainFragmentActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -110,8 +117,98 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
 
     // 初始化 JPush。如果已经初始化，但没有登录成功，则执行重新登录。
     private void initPush(){
-        JPushInterface.init(getApplicationContext());
+
+        // 设置别名
+        setTagAndAlias();
     }
+
+    /**
+     * 设置标签与别名
+     */
+    private void setTagAndAlias() {
+        /**
+         *这里设置了别名，在这里获取的用户登录的信息
+         *并且此时已经获取了用户的userId,然后就可以用用户的userId来设置别名了
+         **/
+        //false状态为未设置标签与别名成功
+        //if (UserUtils.getTagAlias(getHoldingActivity()) == false) {
+        Set<String> tags = new HashSet<String>();
+        //这里可以设置你要推送的人，一般是用户uid 不为空在设置进去 可同时添加多个
+
+        String user_id = StaticMember.USER.getUid();
+        user_id = "1010117";
+        Log.e("TAG", "#############当前登录UID="+user_id);
+
+
+        String alias = StaticMember.USER.getUid();
+        if (TextUtils.isEmpty(alias)) {
+            Toast.makeText(this,"设置广播别名不能为空！", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!ExampleUtil.isValidTagAndAlias(alias)) {
+            Toast.makeText(this,"设置别名错误！", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // 调用 Handler 来异步设置别名
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, alias));
+    }
+    private static final int MSG_SET_ALIAS = 1001;
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_SET_ALIAS:
+                    Log.d(TAG, "####### Set alias in handler.");
+                    // 调用 JPush 接口来设置别名。
+                    JPushInterface.setAliasAndTags(getApplicationContext(), (String) msg.obj, null, mAliasCallback);
+                    break;
+                default:
+                    Log.i(TAG, "Unhandled msg - " + msg.what);
+            }
+        }
+    };
+
+    /**
+     * /**
+     * TagAliasCallback类是JPush开发包jar中的类，用于
+     * 设置别名和标签的回调接口，成功与否都会回调该方法
+     * 同时给定回调的代码。如果code=0,说明别名设置成功。
+     * /**
+     * 6001   无效的设置，tag/alias 不应参数都为 null
+     * 6002   设置超时    建议重试
+     * 6003   alias 字符串不合法    有效的别名、标签组成：字母（区分大小写）、数字、下划线、汉字。
+     * 6004   alias超长。最多 40个字节    中文 UTF-8 是 3 个字节
+     * 6005   某一个 tag 字符串不合法  有效的别名、标签组成：字母（区分大小写）、数字、下划线、汉字。
+     * 6006   某一个 tag 超长。一个 tag 最多 40个字节  中文 UTF-8 是 3 个字节
+     * 6007   tags 数量超出限制。最多 100个 这是一台设备的限制。一个应用全局的标签数量无限制。
+     * 6008   tag/alias 超出总长度限制。总长度最多 1K 字节
+     * 6011   10s内设置tag或alias大于3次 短时间内操作过于频繁
+     **/
+    private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
+        @Override
+        public void gotResult(int code, String alias, Set<String> tags) {
+            String logs;
+            switch (code) {
+                case 0:
+                    //这里可以往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
+                    //UserUtils.saveTagAlias(getHoldingActivity(), true);
+                    logs = "###################Set tag and alias success极光推送别名设置成功";
+                    Log.e("TAG", logs);
+                    break;
+                case 6002:
+                    //极低的可能设置失败 我设置过几百回 出现3次失败 不放心的话可以失败后继续调用上面那个方面 重连3次即可 记得return 不要进入死循环了...
+                    logs = "########################Failed to set alias and tags due to timeout. Try again after 60s.极光推送别名设置失败，60秒后重试";
+                    Log.e("TAG", logs);
+                    break;
+                default:
+                    logs = "##############极光推送设置失败，Failed with errorCode = " + code;
+                    Log.e("TAG", logs);
+                    break;
+            }
+        }
+    };
 
     /**
      * 注册推送消息

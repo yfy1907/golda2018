@@ -38,6 +38,8 @@ public class BoardBean implements Serializable {
     private String b_attach_19;
     private String b_attach_20;
 
+    private String b_attach_21;
+
     private String status;
     private String copy_status;
     private String lead_idea;
@@ -73,7 +75,11 @@ public class BoardBean implements Serializable {
     private String li_height;
 
     private String email;
-//    private String json_id;
+
+    private String cat_name;
+    private String plan_name;
+
+    private String json_id;
 //    private String cat_id;
 //    private String start_time;
 //    private String end_time;
@@ -114,6 +120,7 @@ public class BoardBean implements Serializable {
                 ", b_attach_18='" + b_attach_18 + '\'' +
                 ", b_attach_19='" + b_attach_19 + '\'' +
                 ", b_attach_20='" + b_attach_20 + '\'' +
+                ", b_attach_21='" + b_attach_21 + '\'' +
 
                 ", status='" + status + '\'' +
                 ", copy_status='" + copy_status + '\'' +
@@ -148,11 +155,36 @@ public class BoardBean implements Serializable {
                 ", facenum='" + facenum + '\'' +
                 ", li_height='" + li_height + '\'' +
                 ", email='" + email + '\'' +
-
+                ", cat_name='" + cat_name + '\'' +
+                ", plan_name='" + plan_name + '\'' +
+                ", json_id='" + json_id + '\'' +
 
                 '}';
     }
 
+    public String getCat_name() {
+        return cat_name;
+    }
+
+    public void setCat_name(String cat_name) {
+        this.cat_name = cat_name;
+    }
+
+    public String getPlan_name() {
+        return plan_name;
+    }
+
+    public void setPlan_name(String plan_name) {
+        this.plan_name = plan_name;
+    }
+
+    public String getJson_id() {
+        return json_id;
+    }
+
+    public void setJson_id(String json_id) {
+        this.json_id = json_id;
+    }
 
     public String getEmail() {
         return email;
@@ -417,6 +449,15 @@ public class BoardBean implements Serializable {
     public void setB_attach_20(String b_attach_20) {
         this.b_attach_20 = b_attach_20;
     }
+
+    public String getB_attach_21() {
+        return b_attach_21;
+    }
+
+    public void setB_attach_21(String b_attach_21) {
+        this.b_attach_21 = b_attach_21;
+    }
+
 
     public String getStatus() {
         return status;

@@ -175,8 +175,6 @@ public class FragmentXuncha extends BaseFragment implements BaiduMap.OnMapClickL
         }
     };
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

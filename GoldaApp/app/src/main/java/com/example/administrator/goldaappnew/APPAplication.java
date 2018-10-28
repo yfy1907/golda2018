@@ -9,6 +9,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 public class APPAplication extends Application{
 
@@ -23,7 +25,11 @@ public class APPAplication extends Application{
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(getApplicationContext());
 
-        //initImageLoader(getApplicationContext());
+        // TODO:  2016/12/28  设置开启日志,发布时请关闭日志
+        //初始化极光推送
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
+
     }
 
 

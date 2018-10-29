@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.example.administrator.goldaappnew.R;
 import com.example.administrator.goldaappnew.bean.BoardBean;
 import com.example.administrator.goldaappnew.utils.CommonTools;
+import com.example.administrator.goldaappnew.utils.StringUtil;
+import com.example.administrator.goldaappnew.view.DashLineView;
 
 import java.util.List;
 
@@ -93,6 +95,7 @@ public class LoadMoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return null;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         if (viewHolder instanceof RecyclerViewHolder) {
@@ -121,6 +124,7 @@ public class LoadMoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
              审核lead_idea : 0待审核， 1通过， 2未通过
              最后备案是由最后一步备案专员上传备案通知书就算备案完成b_attach_20这个有值就算“已备案”
              */
+
             // 受理状态
             if("0".equals(board.getStatus())){
                 holder.board_state_sl.setText("未受理");
@@ -164,6 +168,53 @@ public class LoadMoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }else {
                 holder.board_state_ba.setText("未备案");
                 holder.board_state_ba.setBackgroundResource(R.drawable.shape_board_button_state2);
+            }
+
+            /**
+             * 2018/10/29新增
+             * status != 1 && first_idea不为空，显示为“窗口受理退回”，并显示退回原因first_idea
+             local_check !=1 && local_idea不为空，显示为“现场核查退回”，并显示退回原因local_idea
+             lead_idea !=1 && dis_idea不为空，显示为“领导审核退回”，并显示退回原因dis_idea
+             */
+            boolean dashed1 = false;
+            if(!"1".equals(board.getStatus())  && !StringUtil.isEmpty(board.getFirst_idea())){
+                // 窗口受理退回
+                holder.sl_state_result_tv.setText("窗口受理退回："+board.getFirst_idea());
+                dashed1 = true;
+            }else{
+                holder.sl_state_result_tv.setText("");
+            }
+            if(!"1".equals(board.getLocal_check())  && !StringUtil.isEmpty(board.getLocal_check())){
+                // 现场核查退回
+                holder.hc_state_result_tv.setText("现场核查退回："+board.getLocal_check());
+                dashed1 = true;
+            }else{
+                holder.hc_state_result_tv.setText("");
+            }
+            if(dashed1){
+                holder.dashed_line1.setVisibility(View.VISIBLE);
+                holder.sl_state_result_layout.setVisibility(View.VISIBLE);
+            }else{
+                holder.dashed_line1.setVisibility(View.GONE);
+                holder.sl_state_result_layout.setVisibility(View.GONE);
+            }
+
+            boolean dashed2 = false;
+            if(!"1".equals(board.getLead_idea())  && !StringUtil.isEmpty(board.getDis_idea())){
+                // 领导审核退回
+                holder.sh_state_result_tv.setText("领导审核退回："+board.getDis_idea());
+                holder.ba_state_result_tv.setText("");
+                dashed2 = true;
+            }else{
+                holder.sh_state_result_tv.setText("");
+                holder.ba_state_result_tv.setText("");
+            }
+            if(dashed2){
+                holder.dashed_line2.setVisibility(View.VISIBLE);
+                holder.sh_state_result_layout.setVisibility(View.VISIBLE);
+            }else{
+                holder.dashed_line2.setVisibility(View.GONE);
+                holder.sh_state_result_layout.setVisibility(View.GONE);
             }
 
             final String confirm_status = board.getConfirm_status(); // 1只能查看， 0可以修改
@@ -251,6 +302,18 @@ public class LoadMoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public TextView board_state_sh; // 审核状态
         public TextView board_state_ba; // 备案状态
 
+        public DashLineView dashed_line1;
+        public LinearLayout sl_state_result_layout; // 受理结果说明
+        public TextView sl_state_result_tv;  // 受理状态结果备注
+        public TextView hc_state_result_tv;  // 核查状态结果备注
+
+
+        public DashLineView dashed_line2;
+        public LinearLayout sh_state_result_layout; // 审核状态
+        public TextView sh_state_result_tv;  // 审核状态结果备注
+        public TextView ba_state_result_tv;  // 备案状态结果备注
+
+
         public Button btn_query;
 
         RecyclerViewHolder(View itemView) {
@@ -266,6 +329,17 @@ public class LoadMoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             board_state_sh = (TextView) itemView.findViewById(R.id.board_state_sh);
             board_state_ba = (TextView) itemView.findViewById(R.id.board_state_ba);
             btn_query = (Button) itemView.findViewById(R.id.btn_query);
+
+            dashed_line1 = (DashLineView) itemView.findViewById(R.id.dashed_line1);
+            sl_state_result_layout = (LinearLayout) itemView.findViewById(R.id.sl_state_result_layout);
+            sl_state_result_tv = (TextView) itemView.findViewById(R.id.sl_state_result_tv);
+            hc_state_result_tv = (TextView) itemView.findViewById(R.id.hc_state_result_tv);
+
+            dashed_line2 = (DashLineView) itemView.findViewById(R.id.dashed_line2);
+            sh_state_result_layout = (LinearLayout) itemView.findViewById(R.id.sh_state_result_layout);
+            sh_state_result_tv = (TextView) itemView.findViewById(R.id.sh_state_result_tv);
+            ba_state_result_tv = (TextView) itemView.findViewById(R.id.ba_state_result_tv);
+
         }
     }
 

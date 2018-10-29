@@ -145,7 +145,7 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
     @BindView(R.id.edittext_material)
     EditText edittext_material; // 广告牌材质
     @BindView(R.id.edittext_material_time)
-    EditText edittext_material_time; // 材质有效期
+    TextView edittext_material_time; // 材质有效期
     @BindView(R.id.edittext_wt)
     EditText edittext_wt; // 外凸(米)
     @BindView(R.id.edittext_model)
@@ -457,7 +457,7 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         // 保存按钮隐藏（选择省市区、广告牌类型时显示）
         add_save.setVisibility(View.GONE);
 
-//        edittext_material_time = (EditText) view.findViewById(R.id.edittext_material_time);
+//        edittext_material_time = (TextView) view.findViewById(R.id.edittext_material_time);
         edittext_material_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -413,7 +413,7 @@
                     android:singleLine="true"
                     android:hint="非常严重" />
 
-                <Spinner
+                <com.example.administrator.goldaappnew.view.ReSpinner
                     android:id="@+id/sp_level"
                     android:layout_width="25dp"
                     android:layout_height="25dp"

@@ -34,7 +34,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +47,7 @@ import com.example.administrator.goldaappnew.utils.HttpTools;
 import com.example.administrator.goldaappnew.utils.MultiTool;
 import com.example.administrator.goldaappnew.utils.SFTPChannel;
 import com.example.administrator.goldaappnew.view.PinchImageView;
+import com.example.administrator.goldaappnew.view.ReSpinner;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
@@ -81,7 +81,7 @@ public class GreenMarkerDetail extends AppCompatActivity {
     @BindView(R.id.tv_question)
     TextView tv_question;
     @BindView(R.id.sp_level)
-    Spinner sp_level;
+    ReSpinner sp_level;
     @BindView(R.id.tv_level)
     TextView tv_level;
     @BindView(R.id.toolbar)

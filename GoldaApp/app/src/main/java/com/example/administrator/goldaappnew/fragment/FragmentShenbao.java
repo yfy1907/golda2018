@@ -571,8 +571,12 @@ public class FragmentShenbao extends BaseFragment implements MyDialogFileChose.O
         icon_class = boardBean.getIcon_class();
         icon_cnname = boardBean.getIcon_cnname();
 
+        cat_name = boardBean.getCat_name();
+        plan_name = boardBean.getPlan_name();
+
         tv_city_area.setText(boardBean.getProvince()+" "+boardBean.getCity()+" "+boardBean.getArea());
         tv_icon_type.setText(boardBean.getIcon_type() + " "+boardBean.getIcon_class()+" "+boardBean.getIcon_cnname());
+        tv_plan.setText(boardBean.getCat_name() + " " + boardBean.getPlan_name());
 
         edittext_adress.setText(boardBean.getAddress());
         edittext_area_line.setText(boardBean.getArea_line());

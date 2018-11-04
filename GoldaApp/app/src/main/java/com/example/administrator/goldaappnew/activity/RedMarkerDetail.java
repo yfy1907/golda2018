@@ -34,7 +34,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +47,7 @@ import com.example.administrator.goldaappnew.utils.HttpTools;
 import com.example.administrator.goldaappnew.utils.MultiTool;
 import com.example.administrator.goldaappnew.utils.PhotoBitmapUtils;
 import com.example.administrator.goldaappnew.utils.SFTPChannel;
+import com.example.administrator.goldaappnew.view.ReSpinner;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
@@ -80,15 +80,15 @@ public class RedMarkerDetail extends AppCompatActivity {
     @BindView(R.id.image_progress)
     ProgressBar image_progress;
     @BindView(R.id.type)
-    Spinner sp_type;
+    ReSpinner sp_type;
     @BindView(R.id.classe)
-    Spinner sp_classe;
+    ReSpinner sp_classe;
     @BindView(R.id.kind)
-    Spinner sp_kind;
+    ReSpinner sp_kind;
     @BindView(R.id.sp_level)
-    Spinner sp_level;
+    ReSpinner sp_level;
     @BindView(R.id.sp_belong)
-    Spinner sp_belong;
+    ReSpinner sp_belong;
     @BindView(R.id.dateline)
     TextView tv_dateline;
     @BindView(R.id.tv_id)

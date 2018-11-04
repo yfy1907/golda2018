@@ -31,16 +31,16 @@
         </provider>
 
         <!-- 百度地图API_KEY  上线-->
-        <!--
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="GB1GojgN6beaR0Wxqqlqo0Bf27QN4dAd" />
-        -->
+
         <!-- 百度地图API_KEY  本机测试 -->
+        <!--
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="OUR7I0V5FbDGmfWznihLgxoCUCpQWeW6" />
-
+        -->
         <!-- 百度地图定位服务 -->
         <service
             android:name="com.baidu.location.f"

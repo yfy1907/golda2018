@@ -184,9 +184,9 @@ public class LoadMoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }else{
                 holder.sl_state_result_tv.setText("");
             }
-            if(!"1".equals(board.getLocal_check())  && !StringUtil.isEmpty(board.getLocal_check())){
+            if(!"1".equals(board.getLocal_check())  && !StringUtil.isEmpty(board.getLocal_idea())){
                 // 现场核查退回
-                holder.hc_state_result_tv.setText("现场核查退回："+board.getLocal_check());
+                holder.hc_state_result_tv.setText("现场核查退回："+board.getLocal_idea());
                 dashed1 = true;
             }else{
                 holder.hc_state_result_tv.setText("");
